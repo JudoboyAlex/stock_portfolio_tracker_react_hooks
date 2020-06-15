@@ -22,13 +22,15 @@ function App() {
     <div>
       <Form addStockSymbol={addStockSymbol}/>
       {stockSymbol.map((stock, index) => (
-          <Portfolio 
-          key = {index}
-          index = {index}
-          stock={stock}
-          />          
+        <div>
+            <Portfolio 
+            key = {index}
+            index = {index}
+            stock={stock}
+            /> 
+            <Chart key = {index+1} stock={stock}/>    
+        </div>           
       ))}
-      <Chart />  
     </div>     
   )
 }

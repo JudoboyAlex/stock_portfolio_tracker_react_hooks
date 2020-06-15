@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-
+import './Portfolio.css';
 
 const Portfolio = ({stock}) => {
     const [data, setData] = useState([]);
@@ -16,7 +16,7 @@ const Portfolio = ({stock}) => {
     },[]);
     console.log(data.pc)
     return (
-        <div>
+        <div className="portfolio-container">
             Your Holding: {stock.quote}  Current Stock Price: ${data.pc} Invetment Return:  AVG Cost: Click Here For Chart 
         </div>
     )
