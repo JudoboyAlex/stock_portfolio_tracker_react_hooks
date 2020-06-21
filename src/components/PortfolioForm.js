@@ -1,12 +1,13 @@
 import React, { useState }from 'react';
-import './Form.css';
+import './PortfolioForm.css';
+import { Row, Col, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 
-const Form = ({addStockSymbol}) => {
+const PortfolioForm = ({addStockSymbol}) => {
 
     const [ quotes, setQuotes] = useState("");
 
-    const handleChange = (event) => {
-        setQuotes(event.target.value);
+    const handleChange = ({target}) => {
+        setQuotes(target.value.toUpperCase())
       }
 
     const handleSubmit = (event) =>  {
@@ -16,25 +17,35 @@ const Form = ({addStockSymbol}) => {
       }
 
     return (
-        <div>
+        <div className="text-center" style={{width: "100%"}}>
             <h1>Stock Portfolio Tracker</h1>
-            <form onSubmit={handleSubmit}>
-                <h3>Enter Stock Symbol</h3>
-                <input type="text" name="name" placeholder="Ex: UVXY" onChange={handleChange} />
-                <div>
-                <input type="text" name="name" placeholder="Eg: 30" onChange={handleChange}/>
-                </div>
-                <div>
-                <input type="text" name="name" placeholder="Eg: Date of Purchase" onChange={handleChange}/>
-                </div>
-                <button>SUBMIT</button>
-            </form>
+            <Form onSubmit={handleSubmit}>
+              <FormGroup row>
+                <Label className="form-label" for="exampleEmail" sm={5}>Stock Symbol</Label>
+                <Col sm={2}>
+                  <Input type="text" name="stock-symbol" value={quotes} onChange={handleChange} placeholder="Eg: UVXY" />
+                </Col>
+              </FormGroup>
+              <FormGroup row>
+                <Label className="form-label" for="examplePassword" sm={5}>Average Cost</Label>
+                <Col sm={2}>
+                  <Input type="text" name="avg-cost" placeholder="Eg: 43.23" />
+                </Col>
+              </FormGroup>
+              <FormGroup row>
+                <Label className="form-label" for="examplePassword" sm={5}>Purchased Date</Label>
+                <Col sm={2}>
+                  <Input type="date" name="date" placeholder="2010-04-17" />
+                </Col>
+              </FormGroup>
+              <Button color="primary">SUBMIT</Button>
+            </Form>
         </div>
     )
 
 }
 
-export default Form;
+export default PortfolioForm;
 
 
 

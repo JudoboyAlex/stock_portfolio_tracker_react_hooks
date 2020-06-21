@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
-import Form from './components/Form';
+import React, {useState, Fragment} from 'react';
 import Portfolio from './components/Portfolio';
+import PortfolioForm from './components/PortfolioForm';
 import Chart from './components/Chart';
+import { Table } from 'reactstrap';
 
 import './App.css';
 
@@ -20,7 +21,7 @@ function App() {
 
   return (
     <div>
-      <Form addStockSymbol={addStockSymbol}/>
+      <PortfolioForm addStockSymbol={addStockSymbol}/>
       {stockSymbol.map((stock, index) => (
         <div>
             <Portfolio 
@@ -28,7 +29,7 @@ function App() {
             index = {index}
             stock={stock}
             /> 
-            <Chart key = {index+1} stock={stock}/>    
+            <Chart stock={stock}/>    
         </div>           
       ))}
     </div>     
