@@ -1,5 +1,7 @@
 import React, { useState }from 'react';
 import './PortfolioForm.css';
+import { Table } from 'reactstrap';
+
 import { Row, Col, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 
 const PortfolioForm = ({addStockSymbol}) => {
@@ -40,13 +42,30 @@ const PortfolioForm = ({addStockSymbol}) => {
               </FormGroup>
               <Button color="primary">SUBMIT</Button>
             </Form>
+            <ul className="table-headings">
+              <li>#</li>
+              <li>Your Holding</li>
+              <li>Current Stock Price</li>
+              <li>AVG Cost</li>
+              <li>Holding Period</li>
+              <li>Return</li>
+            </ul>
         </div>
     )
 
 }
 
 export default PortfolioForm;
-
+// <Table bordered dark className="portfolio-container">
+// <thead>
+//     <tr>
+//     <th>#</th>
+//     <th>Your Holding</th>
+//     <th>Current Stock Price</th>
+//     <th>AVG Cost</th>
+//     </tr>
+// </thead>
+// </Table>
 
 
 // import React, { useState } from "react";

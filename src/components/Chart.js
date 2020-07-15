@@ -7,6 +7,7 @@ const Chart = ({stock}) => {
     console.log("hi")
     const [chartData, setChartData] = useState([]);
     const chartRef = useRef();
+    let showChart = true;
 
     useEffect(() => {
         (async () => {
@@ -52,12 +53,15 @@ const Chart = ({stock}) => {
         })();
     },[stock.quote]);
 
-    return (
-
-            <div className="chart-container">
-                <h2>Interactive 5 Years Historical Daily Chart</h2>
-                <div ref={chartRef} />
-            </div>
+    // if(showChart){
+        return (
+                
+                <div className="chart-container">
+                    <h2>Interactive 5 Years Historical Daily Chart</h2>
+                    <div ref={chartRef} />
+                </div>
+                
         )
-    }
+    // }
+}
 export default Chart;

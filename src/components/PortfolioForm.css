@@ -5,3 +5,21 @@ h1 {
 .form-label {
     padding-left: 30rem;
 }
+
+.table-headings {
+    display: flex;
+    list-style-type: none;
+    justify-content: center;
+    margin-top: 1rem;
+    
+}
+
+.table-headings li {
+    padding: 0.5rem 2rem;
+    border: solid;
+    width: 11rem;
+    text-align: center;
+    margin-bottom: -1rem;
+    /* margin: 1rem; */
+    /* flex:1; */
+}
