@@ -6,20 +6,21 @@ import Chart from './components/Chart';
 import './App.css';
 
 function App() {
-  const [stockSymbol, setStockSymbol] = useState([{ quote: "SPY", cost:320, currentHolding: true }]);
-  
+  const [stockInfo, setStockInfo] = useState([{ quote: "SPY", cost:320, currentHolding: true }]);
+
   let showChart = true;
 
-  const addStockSymbol = (quote, cost) => {
-    const newStockSymbol = [...stockSymbol, { quote }, { cost }];
-    setStockSymbol(newStockSymbol);
+  const addStockSymbol = (quote, cost) => {    
+    const newStockInfo = [...stockInfo, { quote: quote, cost: Number(cost), currentHolding: true }];
+    setStockInfo(newStockInfo);
+    console.log(newStockInfo);
   };
       
   if(!showChart){
     return (
       <div>
         <PortfolioForm addStockSymbol={addStockSymbol} />
-        {stockSymbol.map((stock, index) => (
+        {stockInfo.map((stock, index) => (
           <div>
               <Portfolio 
               key = {index}
@@ -35,7 +36,7 @@ function App() {
     return (
       <div>
         <PortfolioForm addStockSymbol={addStockSymbol} />
-        {stockSymbol.map((stock, index) => (
+        {stockInfo.map((stock, index) => (
           <div>
               <Portfolio 
               key = {index}

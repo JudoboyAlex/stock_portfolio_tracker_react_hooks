@@ -1,5 +1,6 @@
 import React, { useState }from 'react';
 import './PortfolioForm.css';
+import Portfolio from './Portfolio';
 import { Table } from 'reactstrap';
 
 import { Row, Col, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
@@ -20,6 +21,7 @@ const PortfolioForm = ({addStockSymbol}, {addAvgCost}) => {
     const handleSubmit = (event) =>  {
       event.preventDefault();
       addStockSymbol(quotes.toUpperCase(), avgCost);
+      console.log(quotes, avgCost);
       setQuotes("");
       setAvgCost("");
     }
