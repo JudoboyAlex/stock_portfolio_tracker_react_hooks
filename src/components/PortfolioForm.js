@@ -1,14 +1,13 @@
 import React, { useState }from 'react';
 import './PortfolioForm.css';
-import Portfolio from './Portfolio';
-import { Table } from 'reactstrap';
 
 import { Row, Col, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 
-const PortfolioForm = ({addStockSymbol}, {addAvgCost}) => {
+const PortfolioForm = ({addStockSymbol}) => {
 
     const [ quotes, setQuotes ] = useState("");
     const [ avgCost, setAvgCost ] = useState("");
+    const [ purchaedDate, setPurchasedDate ] = useState("");
 
     const handleChange = ({target}) => {
         setQuotes(target.value.toUpperCase());
@@ -16,6 +15,11 @@ const PortfolioForm = ({addStockSymbol}, {addAvgCost}) => {
 
     const handleChangeCost = ({target}) => {
         setAvgCost(target.value);
+      }
+
+    const handlePurchasedDate = ({target}) => {
+      setPurchasedDate(target.value);
+      console.log(purchaedDate)
       }
 
     const handleSubmit = (event) =>  {
@@ -45,7 +49,7 @@ const PortfolioForm = ({addStockSymbol}, {addAvgCost}) => {
               <FormGroup row>
                 <Label className="form-label" for="examplePassword" sm={5}>Purchased Date</Label>
                 <Col sm={2}>
-                  <Input type="date" name="date" placeholder="2010-04-17" />
+                  <Input type="date" name="date" value={purchaedDate} onChange={handlePurchasedDate} placeholder="2010-04-17" />
                 </Col>
               </FormGroup>
               <Button color="primary">SUBMIT</Button>

@@ -1,4 +1,4 @@
-import React, {useState, Fragment} from 'react';
+import React, {useState} from 'react';
 import Portfolio from './components/Portfolio';
 import PortfolioForm from './components/PortfolioForm';
 import Chart from './components/Chart';
@@ -9,13 +9,12 @@ function App() {
   const [stockInfo, setStockInfo] = useState([{ quote: "SPY", cost:320, currentHolding: true }]);
 
   let showChart = true;
-
+ 
   const addStockSymbol = (quote, cost) => {    
     const newStockInfo = [...stockInfo, { quote: quote, cost: Number(cost), currentHolding: true }];
     setStockInfo(newStockInfo);
-    console.log(newStockInfo);
   };
-      
+  
   if(!showChart){
     return (
       <div>
@@ -23,7 +22,7 @@ function App() {
         {stockInfo.map((stock, index) => (
           <div>
               <Portfolio 
-              key = {index}
+              key = {stock.id}
               index = {index}
               stock={stock}
               /> 
@@ -39,7 +38,7 @@ function App() {
         {stockInfo.map((stock, index) => (
           <div>
               <Portfolio 
-              key = {index}
+              key = {stock.id}
               index = {index}
               stock={stock}
               /> 

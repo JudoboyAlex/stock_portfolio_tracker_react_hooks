@@ -2,27 +2,29 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './Portfolio.css';
 
-const Portfolio = ({stock}) => {
-const [data, setData] = useState([]);
-const [counter, setCounter] = useState(1);
+const Portfolio = ({stock: {quote, cost}, index}) => {
+const [stockData, setStockData] = useState([]);
+
+const rateReturn = (stockData.pc - cost) / cost * 100;
+const roundedRateReturn = rateReturn.toFixed(2);
 
     useEffect(() => {
         (async () => {
           const data = await axios(
-            `https://finnhub.io/api/v1/quote?symbol=${stock.quote}&token=${process.env.REACT_APP_API_KEY}`
+            `https://finnhub.io/api/v1/quote?symbol=${quote}&token=${process.env.REACT_APP_API_KEY}`
           );
-            setData(data.data);
+            setStockData(data.data);
         })();
     },[]);
-    console.log(stock)
+
     return (
         <ul className="table-headings">
-            <li>{counter}</li>
-            <li>{stock.quote}</li>
-            <li>${data.pc}</li>
-            <li>${stock.cost}</li>
+            <li>{index+1}</li>
+            <li>{quote}</li>
+            <li>${stockData.pc}</li>
+            <li>${cost}</li>
             <li>320 days</li>
-            <li>36.78%</li>
+            <li>{roundedRateReturn}%</li>
         </ul>    
     )
 }
