@@ -7,7 +7,7 @@ const PortfolioForm = ({addStockSymbol}) => {
 
     const [ quotes, setQuotes ] = useState("");
     const [ avgCost, setAvgCost ] = useState("");
-    const [ purchaedDate, setPurchasedDate ] = useState("");
+    const [ purchaseDate, setPurchaseDate ] = useState("");
 
     const handleChange = ({target}) => {
         setQuotes(target.value.toUpperCase());
@@ -17,15 +17,13 @@ const PortfolioForm = ({addStockSymbol}) => {
         setAvgCost(target.value);
       }
 
-    const handlePurchasedDate = ({target}) => {
-      setPurchasedDate(target.value);
-      console.log(purchaedDate)
+    const handlePurchaseDate = ({target}) => {
+      setPurchaseDate(target.value);
       }
 
     const handleSubmit = (event) =>  {
       event.preventDefault();
-      addStockSymbol(quotes.toUpperCase(), avgCost);
-      console.log(quotes, avgCost);
+      addStockSymbol(quotes.toUpperCase(), avgCost, purchaseDate);
       setQuotes("");
       setAvgCost("");
     }
@@ -47,9 +45,9 @@ const PortfolioForm = ({addStockSymbol}) => {
                 </Col>
               </FormGroup>
               <FormGroup row>
-                <Label className="form-label" for="examplePassword" sm={5}>Purchased Date</Label>
+                <Label className="form-label" for="examplePassword" sm={5}>Purchase  Date</Label>
                 <Col sm={2}>
-                  <Input type="date" name="date" value={purchaedDate} onChange={handlePurchasedDate} placeholder="2010-04-17" />
+                  <Input type="date" name="date" value={purchaseDate} onChange={handlePurchaseDate} placeholder="2010-04-17" />
                 </Col>
               </FormGroup>
               <Button color="primary">SUBMIT</Button>

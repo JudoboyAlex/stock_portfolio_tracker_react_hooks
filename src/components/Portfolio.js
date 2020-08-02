@@ -2,11 +2,20 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './Portfolio.css';
 
-const Portfolio = ({stock: {quote, cost}, index}) => {
+const Portfolio = ({stock: {quote, cost, date}, index}) => {
 const [stockData, setStockData] = useState([]);
 
 const rateReturn = (stockData.pc - cost) / cost * 100;
-const roundedRateReturn = rateReturn.toFixed(2);
+const roundedRateReturn = rateReturn.toFixed();
+
+// Holding Period Calculation
+let oldDate = date.split("-");
+let formattedOldDate = new Date(oldDate[0], oldDate[1]-1, oldDate[2])
+let today = new Date();
+let diff = new Date(today.getTime() - formattedOldDate.getTime());
+let holdingPeriod = Math.floor(diff/ (1000 * 3600 * 24));
+let HoldingPeriodYear = Math.round(holdingPeriod / 365)
+let HoldingPeriodDay= holdingPeriod % 365
 
     useEffect(() => {
         (async () => {
@@ -23,7 +32,7 @@ const roundedRateReturn = rateReturn.toFixed(2);
             <li>{quote}</li>
             <li>${stockData.pc}</li>
             <li>${cost}</li>
-            <li>320 days</li>
+            { ( HoldingPeriodYear > 0 ) ? <li> {HoldingPeriodYear} years {HoldingPeriodDay} days </li> : <li> {HoldingPeriodDay} days </li> }
             <li>{roundedRateReturn}%</li>
         </ul>    
     )

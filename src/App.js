@@ -6,12 +6,12 @@ import Chart from './components/Chart';
 import './App.css';
 
 function App() {
-  const [stockInfo, setStockInfo] = useState([{ quote: "SPY", cost:320, currentHolding: true }]);
+  const [stockInfo, setStockInfo] = useState([{ quote: "SPY", cost:320, date: "2017-08-01", currentHolding: true }]);
 
   let showChart = true;
  
-  const addStockSymbol = (quote, cost) => {    
-    const newStockInfo = [...stockInfo, { quote: quote, cost: Number(cost), currentHolding: true }];
+  const addStockSymbol = (quote, cost, date) => {    
+    const newStockInfo = [...stockInfo, { quote: quote, cost: Number(cost), date: date, currentHolding: true }];
     setStockInfo(newStockInfo);
   };
   
