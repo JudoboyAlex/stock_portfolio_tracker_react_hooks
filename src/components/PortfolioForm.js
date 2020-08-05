@@ -53,12 +53,14 @@ const PortfolioForm = ({addStockSymbol}) => {
               <Button color="primary">SUBMIT</Button>
             </Form>
             <ul className="table-headings">
-              <li>#</li>
+              <li style={{width: "2rem"}}>#</li>
               <li>Your Holding</li>
               <li>Current Stock Price</li>
-              <li>AVG Cost</li>
+              <li>Book Cost</li>
               <li>Holding Period</li>
               <li>Return</li>
+              <li>5-Year Chart</li>
+              <li style={{borderStyle: "none"}}></li>
             </ul>
         </div>
     )

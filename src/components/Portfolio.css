@@ -4,3 +4,11 @@
     margin-left: 13rem;
 }
 
+.deleteStock {
+    margin-right: 7rem;
+    cursor: pointer;
+}
+
+.stockChart {
+    cursor: pointer;
+}

@@ -3,8 +3,7 @@ import { createChart } from 'lightweight-charts';
 import axios from 'axios';
 import './Chart.css';
 
-const Chart = ({stock}) => {
-    console.log("hi")
+const Chart = ({stockQuote}) => {
     const [chartData, setChartData] = useState([]);
     const chartRef = useRef();
     let showChart = true;
@@ -12,15 +11,13 @@ const Chart = ({stock}) => {
     useEffect(() => {
         (async () => {
           const chartData = await axios(
-            `https://finnhub.io/api/v1/stock/candle?symbol=${stock.quote}&resolution=D&from=1434289638&to=1592056038&token=${process.env.REACT_APP_API_KEY}`
+            `https://finnhub.io/api/v1/stock/candle?symbol=${stockQuote}&resolution=D&from=1434289638&to=1592056038&token=${process.env.REACT_APP_API_KEY}`
           );
-          console.log(chartData);
           setChartData(chartData.data);
-          console.log(chartData);
           let dates = chartData.data.t
           let price = chartData.data.c;
           let months_arr = [1,2,3,4,5,6,7,8,9,10,11,12];
-          console.log(dates)
+
           function getDate(dates){
               let arr = [];   
               for( let i=0; i < dates.length; i++){  
@@ -51,17 +48,12 @@ const Chart = ({stock}) => {
           chart.timeScale().fitContent();
 
         })();
-    },[stock.quote]);
+    },[stockQuote]);
 
-    // if(showChart){
         return (
-                
                 <div className="chart-container">
-                    <h2>Interactive 5 Years Historical Daily Chart</h2>
                     <div ref={chartRef} />
-                </div>
-                
+                </div>              
         )
-    // }
 }
 export default Chart;
