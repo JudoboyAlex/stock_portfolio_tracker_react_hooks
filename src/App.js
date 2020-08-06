@@ -11,6 +11,13 @@ function App() {
     const newStockInfo = [...stockInfo, { quote: quote, cost: Number(cost), date: date, currentHolding: true }];
     setStockInfo(newStockInfo);
   };
+
+  const deleteStockSymbol = index => {
+    const newStockInfo = [...stockInfo];
+    console.log(index);
+    newStockInfo.splice(index, 1);
+    setStockInfo(newStockInfo);
+  };
   
     return (
       <div>
@@ -21,6 +28,7 @@ function App() {
               key = {stock.id}
               index = {index}
               stock={stock}
+              deleteStockSymbol={deleteStockSymbol}
               /> 
           </div>           
         ))}

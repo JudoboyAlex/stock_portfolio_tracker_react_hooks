@@ -4,7 +4,7 @@ import axios from 'axios';
 import './Portfolio.css';
 import Chart from './Chart';
 
-const Portfolio = ({stock: {quote, cost, date}, index}) => {
+const Portfolio = ({stock: {quote, cost, date}, index, deleteStockSymbol},) => {
 const [stockData, setStockData] = useState([]);
 const [modal, setModal] = useState(false);
 const [chartModal, setChartModal] = useState(false);
@@ -13,6 +13,7 @@ const rateReturn = (stockData.pc - cost) / cost * 100;
 const roundedRateReturn = rateReturn.toFixed();
 const toggle = () => setModal(!modal);
 const toggleChartModal = () => setChartModal(!chartModal);
+
 
 // Holding Period Calculation
 let oldDate = date.split("-");
@@ -74,7 +75,7 @@ const rateReturnChecker = () => {
                     Are you sure you want to delete {quote}?
                 </ModalBody>
                 <ModalFooter>
-                    <Button color="danger" onClick={toggle}>Delete</Button>{' '}
+                    <Button color="danger" onClick={() => {deleteStockSymbol(index); toggle();}}>Delete</Button>{' '}
                     <Button color="secondary" onClick={toggle}>Cancel</Button>
                 </ModalFooter>
             </Modal>    
