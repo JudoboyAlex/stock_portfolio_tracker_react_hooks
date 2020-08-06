@@ -9,6 +9,33 @@
     cursor: pointer;
 }
 
+.deleteStock:hover {
+    color: #d54062;
+
+}
+
 .stockChart {
     cursor: pointer;
+}
+
+.stockChart:hover {
+    color: #00b7c2;
+}
+
+.returnPositive a{
+    color: #79d70f;
+}
+
+.returnPositive a:hover{
+    color: #79d70f;
+}
+
+.returnNegative a{
+    color:#FF0000
+    ;
+}
+
+.returnNegative a:hover{
+    color: #FF0000
+    ;
 }

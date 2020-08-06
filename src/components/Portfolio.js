@@ -35,6 +35,14 @@ const holdingPeriodChecker = () => {
     };
 };
 
+const rateReturnChecker = () => {
+    if ( roundedRateReturn > 0 ){
+        return <li className="returnPositive"><a>{roundedRateReturn}%</a></li> 
+    } else {
+        return <li className="returnNegative"><a>{roundedRateReturn}%</a></li> 
+    }
+}
+
     useEffect(() => {
         (async () => {
           const data = await axios(
@@ -52,7 +60,7 @@ const holdingPeriodChecker = () => {
                 <li>${stockData.pc}</li>
                 <li>${cost}</li>
                 { holdingPeriodChecker() }
-                <li>{roundedRateReturn}%</li>
+                { rateReturnChecker() }
                 <li ><span className="stockChart" onClick={toggleChartModal}><i class="fas fa-chart-line fa-2x"></i></span></li>
                 <li style={{borderStyle: "none"}}><span className="deleteStock" onClick={toggle}><i class="fas fa-trash fa-2x"></i></span></li>
             </ul>
