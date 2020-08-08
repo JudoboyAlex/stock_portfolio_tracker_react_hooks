@@ -1,11 +1,13 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Portfolio from './components/Portfolio';
 import PortfolioForm from './components/PortfolioForm';
 
 import './App.css';
 
 function App() {
-  const [stockInfo, setStockInfo] = useState([{ quote: "SPY", cost:270, date: "2017-08-01", currentHolding: true }]);
+  const ALLSTOCKINFOS = localStorage.getItem('stockInfo') ? JSON.parse(localStorage.getItem('stockInfo')) : [];
+  
+  const [stockInfo, setStockInfo] = useState(ALLSTOCKINFOS);
  
   const addStockSymbol = (quote, cost, date) => {    
     const newStockInfo = [...stockInfo, { quote: quote, cost: Number(cost), date: date, currentHolding: true }];
@@ -18,6 +20,10 @@ function App() {
     newStockInfo.splice(index, 1);
     setStockInfo(newStockInfo);
   };
+
+  useEffect(() => {
+  window.localStorage.setItem("stockInfo", JSON.stringify(stockInfo));
+}, [stockInfo]);
   
     return (
       <div>

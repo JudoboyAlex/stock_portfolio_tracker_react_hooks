@@ -6,7 +6,6 @@ import './Chart.css';
 const Chart = ({stockQuote}) => {
     const [chartData, setChartData] = useState([]);
     const chartRef = useRef();
-    let showChart = true;
 
     useEffect(() => {
         (async () => {

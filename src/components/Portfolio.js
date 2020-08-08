@@ -85,6 +85,15 @@ const rateReturnChecker = () => {
 }
 
 export default Portfolio;
+// const initialTodos = JSON.parse(window.localStorage.getItem("todos") || "[]");
+// const { todos, addTodo, removeTodo, toggleTodo, editTodo } = useTodoState(
+//   initialTodos
+// );
+
+// useEffect(() => {
+//   window.localStorage.setItem("todos", JSON.stringify(todos));
+// }, [todos]);
+
 // <Chart stockQuote={quote} />
 
 // { ( HoldingPeriodYear > 0 ) ? <li> {HoldingPeriodYear} years {HoldingPeriodDay} days </li> : <li> {HoldingPeriodDay} days </li> }
