@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Toast, ToastBody, ToastHeader, Alert } from 'reactstrap';
 import axios from 'axios';
 import './Portfolio.css';
 import Chart from './Chart';
@@ -8,12 +8,19 @@ const Portfolio = ({stock: {quote, cost, date}, index, deleteStockSymbol},) => {
 const [stockData, setStockData] = useState([]);
 const [modal, setModal] = useState(false);
 const [chartModal, setChartModal] = useState(false);
+const [error, setError] = useState(false);
+const [missingData, setMissingData] = useState(false);
+const [visible, setVisible] = useState(true);
 
+const onDismiss = () => setVisible(false);
+
+// Rate of Return Calculation
 const rateReturn = (stockData.pc - cost) / cost * 100;
 const roundedRateReturn = rateReturn.toFixed();
+
+// Toggle Modal
 const toggle = () => setModal(!modal);
 const toggleChartModal = () => setChartModal(!chartModal);
-
 
 // Holding Period Calculation
 let oldDate = date.split("-");
@@ -49,14 +56,32 @@ const rateReturnChecker = () => {
 
     useEffect(() => {
         (async () => {
-          const data = await axios(
+        setError(false);
+        setMissingData(false);
+        try {  
+            const data = await axios(
             `https://finnhub.io/api/v1/quote?symbol=${quote}&token=${process.env.REACT_APP_API_KEY}`
           );
+            console.log(data.data)
+            let isMyObjectEmpty = !Object.keys(data.data).length;
+            if (isMyObjectEmpty ){
+                console.log("missing data yo")
+                setMissingData(true)
+            }
             setStockData(data.data);
+        } catch(err){
+            console.log(err);
+            setError(true);
+        }
         })();
     },[]);
 
     return (
+        <div>{missingData ?
+            <Alert color="warning" isOpen={visible} toggle={onDismiss}>
+                Invalid Stock Symbol Entered. Please enter valid U.S stock symbol.
+            </Alert>
+            :
         <div>
             <ul className="table-headings">
                 <li style={{width: "2rem"}}>{index+1}</li>
@@ -68,10 +93,12 @@ const rateReturnChecker = () => {
                 <li ><span className="stockChart" onClick={toggleChartModal}><i class="fas fa-chart-line fa-2x"></i></span></li>
                 <li style={{borderStyle: "none"}}><span className="deleteStock" onClick={toggle}><i class="fas fa-trash fa-2x"></i></span></li>
             </ul>
+
             <Modal isOpen={chartModal} toggle={toggleChartModal} >
             <ModalHeader toggle={toggleChartModal}>5 Years Interactive Chart</ModalHeader>
                 <Chart stockQuote={quote} />
             </Modal>    
+
             <Modal isOpen={modal} toggle={toggle} >
                 <ModalHeader toggle={toggle}>Delete Confirmation</ModalHeader>
                 <ModalBody>
@@ -82,115 +109,9 @@ const rateReturnChecker = () => {
                     <Button color="secondary" onClick={toggle}>Cancel</Button>
                 </ModalFooter>
             </Modal>    
-
         </div>
+        }</div>
     )
 }
 
 export default Portfolio;
-// const initialTodos = JSON.parse(window.localStorage.getItem("todos") || "[]");
-// const { todos, addTodo, removeTodo, toggleTodo, editTodo } = useTodoState(
-//   initialTodos
-// );
-
-// useEffect(() => {
-//   window.localStorage.setItem("todos", JSON.stringify(todos));
-// }, [todos]);
-
-// <Chart stockQuote={quote} />
-
-// { ( HoldingPeriodYear > 0 ) ? <li> {HoldingPeriodYear} years {HoldingPeriodDay} days </li> : <li> {HoldingPeriodDay} days </li> }
-
-// import React, { useState } from "react";
-// import "./App.css";
-
-// function Todo({ todo, index, completeTodo, removeTodo }) {
-//   return (
-//     <div
-//       className="todo"
-//       style={{ textDecoration: todo.isCompleted ? "line-through" : "" }}
-//     >
-//       {todo.text}
-
-//       <div>
-//         <button onClick={() => completeTodo(index)}>Complete</button>
-//         <button onClick={() => removeTodo(index)}>x</button>
-//       </div>
-//     </div>
-//   );
-// }
-
-// function TodoForm({ addTodo }) {
-//   const [value, setValue] = useState("");
-
-//   const handleSubmit = e => {
-//     e.preventDefault();
-//     if (!value) return;
-//     addTodo(value);
-//     setValue("");
-//   };
-
-//   return (
-//     <form onSubmit={handleSubmit}>
-//       <input
-//         type="text"
-//         className="input"
-//         value={value}
-//         onChange={e => setValue(e.target.value)}
-//       />
-//     </form>
-//   );
-// }
-
-// function App() {
-//   const [todos, setTodos] = useState([
-//     {
-//       text: "Learn about React",
-//       isCompleted: false
-//     },
-//     {
-//       text: "Meet friend for lunch",
-//       isCompleted: false
-//     },
-//     {
-//       text: "Build really cool todo app",
-//       isCompleted: false
-//     }
-//   ]);
-
-//   const addTodo = text => {
-//     const newTodos = [...todos, { text }];
-//     setTodos(newTodos);
-//   };
-
-//   const completeTodo = index => {
-//     const newTodos = [...todos];
-//     newTodos[index].isCompleted = true;
-//     setTodos(newTodos);
-//   };
-
-//   const removeTodo = index => {
-//     const newTodos = [...todos];
-//     newTodos.splice(index, 1);
-//     setTodos(newTodos);
-//   };
-
-//   return (
-//     <div className="app">
-//       <div className="todo-list">
-//         {todos.map((todo, index) => (
-//           <Todo
-//             key={index}
-//             index={index}
-//             todo={todo}
-//             completeTodo={completeTodo}
-//             removeTodo={removeTodo}
-//           />
-//         ))}
-//         <TodoForm addTodo={addTodo} />
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default App;

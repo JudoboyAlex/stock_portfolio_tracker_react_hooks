@@ -1,7 +1,7 @@
 import React, { useState }from 'react';
 import './PortfolioForm.css';
 
-import { Row, Col, Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Col, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 const PortfolioForm = ({addStockSymbol}) => {
 
