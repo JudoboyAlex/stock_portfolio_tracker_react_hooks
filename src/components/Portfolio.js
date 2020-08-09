@@ -25,6 +25,9 @@ let HoldingPeriodYear = Math.round(holdingPeriod / 365);
 let HoldingPeriodDay= holdingPeriod % 365;
 
 const holdingPeriodChecker = () => {
+    if (!date){
+        return <li> N/A </li>
+    }
     if ( HoldingPeriodYear > 1 ){
         return <li> {HoldingPeriodYear} years {HoldingPeriodDay} days </li> 
     } else if (

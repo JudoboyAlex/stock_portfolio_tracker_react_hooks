@@ -16,7 +16,6 @@ function App() {
 
   const deleteStockSymbol = index => {
     const newStockInfo = [...stockInfo];
-    console.log(index);
     newStockInfo.splice(index, 1);
     setStockInfo(newStockInfo);
   };
