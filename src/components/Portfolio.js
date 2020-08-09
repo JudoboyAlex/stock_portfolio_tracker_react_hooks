@@ -6,21 +6,19 @@ import Chart from './Chart';
 
 const Portfolio = ({stock: {quote, cost, date}, index, deleteStockSymbol},) => {
 const [stockData, setStockData] = useState([]);
-const [modal, setModal] = useState(false);
+const [deleteModal, setDeleteModal] = useState(false);
 const [chartModal, setChartModal] = useState(false);
-const [error, setError] = useState(false);
+const [invalidSymbolModal, setInvalidSymbolModal] = useState(true);
 const [missingData, setMissingData] = useState(false);
-const [visible, setVisible] = useState(true);
-
-const onDismiss = () => setVisible(false);
 
 // Rate of Return Calculation
 const rateReturn = (stockData.pc - cost) / cost * 100;
 const roundedRateReturn = rateReturn.toFixed();
 
 // Toggle Modal
-const toggle = () => setModal(!modal);
+const toggleDeleteModal = () => setDeleteModal(!deleteModal);
 const toggleChartModal = () => setChartModal(!chartModal);
+const toggleInvalidSymbolModal = () => setInvalidSymbolModal(!invalidSymbolModal);
 
 // Holding Period Calculation
 let oldDate = date.split("-");
@@ -56,62 +54,64 @@ const rateReturnChecker = () => {
 
     useEffect(() => {
         (async () => {
-        setError(false);
         setMissingData(false);
         try {  
             const data = await axios(
             `https://finnhub.io/api/v1/quote?symbol=${quote}&token=${process.env.REACT_APP_API_KEY}`
           );
-            console.log(data.data)
             let isMyObjectEmpty = !Object.keys(data.data).length;
             if (isMyObjectEmpty ){
-                console.log("missing data yo")
                 setMissingData(true)
             }
             setStockData(data.data);
         } catch(err){
             console.log(err);
-            setError(true);
         }
         })();
     },[]);
 
     return (
-        <div>{missingData ?
-            <Alert color="warning" isOpen={visible} toggle={onDismiss}>
-                Invalid Stock Symbol Entered. Please enter valid U.S stock symbol.
-            </Alert>
-            :
-        <div>
-            <ul className="table-headings">
-                <li style={{width: "2rem"}}>{index+1}</li>
-                <li>{quote}</li>
-                <li>${stockData.pc}</li>
-                <li>${cost}</li>
-                { holdingPeriodChecker() }
-                { rateReturnChecker() }
-                <li ><span className="stockChart" onClick={toggleChartModal}><i class="fas fa-chart-line fa-2x"></i></span></li>
-                <li style={{borderStyle: "none"}}><span className="deleteStock" onClick={toggle}><i class="fas fa-trash fa-2x"></i></span></li>
-            </ul>
+            <div>
+                {
+                    missingData ?
+                    <Modal isOpen={invalidSymbolModal} toggle={toggleInvalidSymbolModal} >
+                        <ModalHeader style={{ color : "red"}} toggle={() => {deleteStockSymbol(index); toggleInvalidSymbolModal();}}>Invalid Stock Symbol Entered</ModalHeader>
+                        <ModalBody>
+                            Please Enter A Valid U.S. Stock Symbol
+                        </ModalBody>
+                    </Modal> 
+                    :
+                    <div>
+                        <ul className="table-headings">
+                            <li style={{width: "2rem"}}>{index+1}</li>
+                            <li>{quote}</li>
+                            <li>${stockData.pc}</li>
+                            <li>${cost}</li>
+                            { holdingPeriodChecker() }
+                            { rateReturnChecker() }
+                            <li ><span className="stockChart" onClick={toggleChartModal}><i class="fas fa-chart-line fa-2x"></i></span></li>
+                            <li style={{borderStyle: "none"}}><span className="deleteStock" onClick={toggleDeleteModal}><i class="fas fa-trash fa-2x"></i></span></li>
+                        </ul>
 
-            <Modal isOpen={chartModal} toggle={toggleChartModal} >
-            <ModalHeader toggle={toggleChartModal}>5 Years Interactive Chart</ModalHeader>
-                <Chart stockQuote={quote} />
-            </Modal>    
+                        <Modal isOpen={chartModal} toggle={toggleChartModal} >
+                        <ModalHeader toggle={toggleChartModal}>5 Years Interactive Chart</ModalHeader>
+                            <Chart stockQuote={quote} />
+                        </Modal>    
 
-            <Modal isOpen={modal} toggle={toggle} >
-                <ModalHeader toggle={toggle}>Delete Confirmation</ModalHeader>
-                <ModalBody>
-                    Are you sure you want to delete {quote}?
-                </ModalBody>
-                <ModalFooter>
-                    <Button color="danger" onClick={() => {deleteStockSymbol(index); toggle();}}>Delete</Button>{' '}
-                    <Button color="secondary" onClick={toggle}>Cancel</Button>
-                </ModalFooter>
-            </Modal>    
-        </div>
-        }</div>
-    )
-}
+                        <Modal isOpen={deleteModal} toggle={toggleDeleteModal} >
+                            <ModalHeader toggle={toggleDeleteModal}>Delete Confirmation</ModalHeader>
+                            <ModalBody>
+                                Are you sure you want to delete {quote}?
+                            </ModalBody>
+                            <ModalFooter>
+                                <Button color="danger" onClick={() => {deleteStockSymbol(index); toggleDeleteModal();}}>Delete</Button>{' '}
+                                <Button color="secondary" onClick={toggleDeleteModal}>Cancel</Button>
+                            </ModalFooter>
+                        </Modal>    
+                    </div>
+                }   
+            </div>
+        )
+    }
 
 export default Portfolio;
