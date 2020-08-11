@@ -71,7 +71,7 @@ const rateReturnChecker = () => {
     },[]);
 
     return (
-            <div>
+            <div className="table-wrapper">
                 {
                     missingData ?
                     <Modal isOpen={invalidSymbolModal} toggle={toggleInvalidSymbolModal} >

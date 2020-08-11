@@ -1,6 +1,5 @@
 import React, { useState }from 'react';
 import './PortfolioForm.css';
-
 import { Col, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 const PortfolioForm = ({addStockSymbol}) => {
@@ -40,7 +39,6 @@ const PortfolioForm = ({addStockSymbol}) => {
         setErrorMsgAvgCost("Average cost must be number")
         return false;
       }
-
       return true;
     }
 
@@ -63,7 +61,7 @@ const PortfolioForm = ({addStockSymbol}) => {
     return (
         <div className="text-center" style={{width: "100%"}}>
             <h1>Stock Portfolio Tracker</h1>
-            <Form onSubmit={handleSubmit}>
+            <Form className="form-wrapper" onSubmit={handleSubmit}>
               <FormGroup row>
                 <Label className="form-label" for="exampleEmail" sm={5}>Stock Symbol</Label>
                 <Col sm={2}>
