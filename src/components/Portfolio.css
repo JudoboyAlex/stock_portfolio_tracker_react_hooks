@@ -23,11 +23,12 @@
 }
 
 .returnPositive a{
-    color: #79d70f;
+    color: #228B22;
+    font-weight: 900;
 }
 
 .returnPositive a:hover{
-    color: #79d70f;
+    color: #228B22;
 }
 
 .returnNegative a{
@@ -38,4 +39,26 @@
 .returnNegative a:hover{
     color: #FF0000
     ;
+}
+
+.sub-table-headings {
+    display: flex;
+    list-style-type: none;
+    justify-content: center;
+    margin-top: 1rem;
+    margin-left: 5rem;
+    font-family: 'Roboto Slab', serif;
+    font-weight: 500;
+}
+
+.sub-table-headings li {
+    padding: 0.5rem 2rem;
+    border: solid;
+    width: 11rem;
+    text-align: center;
+    margin-bottom: -1rem;
+}
+
+.sub-table-headings li:not(:nth-child(8)) {
+    background-color: #ffd8a6;   
 }

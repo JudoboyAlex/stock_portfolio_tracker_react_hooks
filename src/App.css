@@ -1,16 +1,7 @@
 body, html {
-    background-image: url(./images/market-bg.jpg);
+    background-image: url(https://stock-portfolio-tracker-background-image.s3.ca-central-1.amazonaws.com/market-bg.jpg);
     height: 100%; 
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
 }
-
-
-/* .moneyBackground {
-    background-image: url(./images/market-bg.jpg);
-    height: 100%; 
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-} */

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Toast, ToastBody, ToastHeader, Alert } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import axios from 'axios';
 import './Portfolio.css';
 import Chart from './Chart';
@@ -82,7 +82,7 @@ const rateReturnChecker = () => {
                     </Modal> 
                     :
                     <div>
-                        <ul className="table-headings">
+                        <ul className="sub-table-headings">
                             <li style={{width: "2rem"}}>{index+1}</li>
                             <li>{quote}</li>
                             <li>${stockData.pc}</li>

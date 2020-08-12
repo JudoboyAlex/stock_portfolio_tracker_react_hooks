@@ -1,6 +1,6 @@
 import React, { useState }from 'react';
 import './PortfolioForm.css';
-import { Col, Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Col, Button, Form, FormGroup, Label, Input, Popover, PopoverHeader, PopoverBody } from 'reactstrap';
 
 const PortfolioForm = ({addStockSymbol}) => {
 
@@ -9,6 +9,10 @@ const PortfolioForm = ({addStockSymbol}) => {
     const [ purchaseDate, setPurchaseDate ] = useState("");
     const [ errorMsgQuote, setErrorMsgQuote ] = useState("");
     const [ errorMsgAvgCost, setErrorMsgAvgCost ] = useState("");
+    const [ errorMsgPurchaseDate, setErrorMsgPurchaseDate ] = useState("");
+    const [popoverOpen, setPopoverOpen] = useState(false);
+
+    const togglePopUp = () => setPopoverOpen(!popoverOpen);
 
     const handleChange = ({target}) => {
         setQuotes(target.value.toUpperCase());
@@ -39,6 +43,14 @@ const PortfolioForm = ({addStockSymbol}) => {
         setErrorMsgAvgCost("Average cost must be number")
         return false;
       }
+
+      let tradeDate = new Date(purchaseDate);
+      let today = new Date();
+      if(tradeDate > today) {
+        setErrorMsgPurchaseDate("Purchase date cannot be from future 😄")
+        return false;
+      }
+
       return true;
     }
 
@@ -61,18 +73,27 @@ const PortfolioForm = ({addStockSymbol}) => {
     return (
         <div className="text-center" style={{width: "100%"}}>
             <h1>Stock Portfolio Tracker</h1>
+            <div className="popUpButton">
+              <Button color="success" id="Popover1" type="button">
+                <strong>?</strong>
+              </Button>
+              <Popover placement="bottom" isOpen={popoverOpen} target="Popover1" toggle={togglePopUp}>
+                <PopoverHeader>User Guide</PopoverHeader>
+                <PopoverBody>Please enter U.S. stock symbol only. Stock symbol and average cost fields must be filled. Portfolio information is saved in local storage. Current stock price reflects previous closing day price as I could not afford real-time quotes API.</PopoverBody>
+              </Popover>
+            </div>
             <Form className="form-wrapper" onSubmit={handleSubmit}>
               <FormGroup row>
                 <Label className="form-label" for="exampleEmail" sm={5}>Stock Symbol</Label>
                 <Col sm={2}>
-                  <Input type="text" name="stock-symbol" value={quotes} onChange={handleChange} placeholder="Eg: UVXY" />
+                  <Input type="text" name="stock-symbol" value={quotes} onChange={handleChange} placeholder="Eg: SHOP" />
                   <div style={{ fontSize: 12, color: "red" }}>{errorMsgQuote}</div>
                 </Col>
               </FormGroup>
               <FormGroup row>
                 <Label className="form-label" for="examplePassword" sm={5}>Average Cost</Label>
                 <Col sm={2}>
-                  <Input type="text" name="avg-cost" value={avgCost} onChange={handleChangeCost} placeholder="Eg: 43.23" />
+                  <Input type="text" name="avg-cost" value={avgCost} onChange={handleChangeCost} placeholder="Eg: 775.23" />
                   <div style={{ fontSize: 12, color: "red" }}>{errorMsgAvgCost}</div>
                 </Col>
               </FormGroup>
@@ -80,6 +101,7 @@ const PortfolioForm = ({addStockSymbol}) => {
                 <Label className="form-label" for="examplePassword" sm={5}>Purchase  Date</Label>
                 <Col sm={2}>
                   <Input type="date" name="date" value={purchaseDate} onChange={handlePurchaseDate} placeholder="2010-04-17" />
+                  <div style={{ fontSize: 12, color: "red" }}>{errorMsgPurchaseDate}</div>
                 </Col>
               </FormGroup>
               <Button color="primary">SUBMIT</Button>

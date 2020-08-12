@@ -1,8 +1,7 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Portfolio from './components/Portfolio';
 import PortfolioForm from './components/PortfolioForm';
 import Footer from './components/Footer';
-// import BackgroundImage from './images/money-bg-large.jpg'
 import './App.css';
 
 function App() {
@@ -26,7 +25,7 @@ function App() {
 }, [stockInfo]);
   
     return (
-      <div className="moneyBackground">
+      <div>
         <PortfolioForm addStockSymbol={addStockSymbol} />
         {stockInfo.map((stock, index) => (
           <div>
