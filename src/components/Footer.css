@@ -12,6 +12,7 @@ html, body {
     padding-top: 1rem;
     padding-bottom: 1rem;
     text-align: center;
+    background-color: #363636;
 }
 
 .nameLink a {
