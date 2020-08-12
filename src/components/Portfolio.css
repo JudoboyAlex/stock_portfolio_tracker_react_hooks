@@ -23,7 +23,7 @@
 }
 
 .returnPositive a{
-    color: #228B22;
+    color: #228B22 !important;
     font-weight: 900;
 }
 
@@ -32,8 +32,7 @@
 }
 
 .returnNegative a{
-    color:#FF0000
-    ;
+    color:#FF0000 !important;
 }
 
 .returnNegative a:hover{
