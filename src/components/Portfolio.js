@@ -68,7 +68,7 @@ const rateReturnChecker = () => {
             console.log(err);
         }
         })();
-    },[]);
+    },[quote]);
 
     return (
             <div className="table-wrapper">
