@@ -10,7 +10,7 @@ const Chart = ({stockQuote}) => {
     useEffect(() => {
         (async () => {
           const chartData = await axios(
-            `https://finnhub.io/api/v1/stock/candle?symbol=${stockQuote}&resolution=D&from=1451606400&to=1572910590&token=${process.env.REACT_APP_API_KEY}`
+            `https://finnhub.io/api/v1/stock/candle?symbol=${stockQuote}&resolution=D&from=1451606400&to=1597288773&token=${process.env.REACT_APP_API_KEY}`
           );
           setChartData(chartData.data);
           let dates = chartData.data.t
