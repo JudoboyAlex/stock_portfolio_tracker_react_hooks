@@ -36,6 +36,7 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 * React Hooks
 * ReactStrap
+* AWS S3 for storing image
 * Font Awesome
 * Google Fonts
 * Unsplash for background image
